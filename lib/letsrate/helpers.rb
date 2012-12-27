@@ -3,12 +3,10 @@ module Helpers
   
     raise ArgumentError, "model object passed in for rating is nil" if rateable_obj.nil?
 
-    if rateable_obj
-      if dimension.nil?
-        klass = rateable_obj.average
-      else             
-        klass = rateable_obj.average "#{dimension}"    
-      end
+    if dimension.nil?
+      klass = rateable_obj.average
+    else             
+      klass = rateable_obj.average "#{dimension}"    
     end
     
     if klass.nil?
