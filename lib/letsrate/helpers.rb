@@ -1,10 +1,14 @@
 module Helpers  
   def rating_for(rateable_obj, dimension=nil, options={})                             
- 
-    if dimension.nil?
-      klass = rateable_obj.average
-    else             
-      klass = rateable_obj.average "#{dimension}"    
+  
+    raise ArgumentError, "model object passed in for rating is nil" if rateable_obj.nil?
+
+    if rateable_obj
+      if dimension.nil?
+        klass = rateable_obj.average
+      else             
+        klass = rateable_obj.average "#{dimension}"    
+      end
     end
     
     if klass.nil?
