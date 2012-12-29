@@ -7,6 +7,8 @@ module Letsrate
       rates(dimension).build do |r|
         r.stars = stars
         r.rater_id = user_id
+        r.rateable_id = self.id
+        r.rateable_type = self.class.name
         r.save!          
       end      
       update_rate_average(stars, dimension)
@@ -27,10 +29,18 @@ module Letsrate
       end                     
     else
       a = average(dimension)
-      a.avg = (a.avg*a.qty + stars) / (a.qty+1)
+      ap a.avg
+      ap a.qty
+      ap stars
+
+      a.avg = ((a.avg*a.qty) + stars) / (a.qty+1)
       a.qty = a.qty + 1
+
+      ap "--------"
+      ap a.avg
+      ap a.qty
       a.save!
-    end   
+    end
   end                               
   
   def average(dimension=nil)

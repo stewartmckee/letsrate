@@ -17,11 +17,14 @@ module Helpers
     
     star = options[:star] || 5
     
-    content_tag :div, "", "data-dimension" => dimension, :class => "star", "data-rating" => avg, 
-                          "data-id" => rateable_obj.id, "data-classname" => rateable_obj.class.name,
-                          "data-star-count" => star           
-    
-    
+    content_tag :div do 
+      rating_contents = ""
+      rating_contents += content_tag :div, "", "data-dimension" => dimension, :class => "star", "data-rating" => avg, 
+                            "data-id" => rateable_obj.id, "data-classname" => rateable_obj.class.name,
+                            "data-star-count" => star
+      rating_contents.html_safe
+    end
+
   end
      
 end
