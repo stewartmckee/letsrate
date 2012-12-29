@@ -16,12 +16,13 @@ module Helpers
     end
     
     star = options[:star] || 5
+    options[:read_only] = false unless options.has_key?(:read_only)
     
     content_tag :div do 
       rating_contents = ""
       rating_contents += content_tag :div, "", "data-dimension" => dimension, :class => "star", "data-rating" => avg, 
                             "data-id" => rateable_obj.id, "data-classname" => rateable_obj.class.name,
-                            "data-star-count" => star
+                            "data-star-count" => star, "data-read-only" => options[:read_only]
       rating_contents.html_safe
     end
 
