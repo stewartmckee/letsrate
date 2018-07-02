@@ -6,9 +6,9 @@ Provides the best way to add rating capabilites to your Rails application with j
 [![Dependency Status](https://gemnasium.com/muratguzel/letsrate.png)](https://gemnasium.com/muratguzel/letsrate)
 [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/muratguzel/letsrate)
 
-## Repository
+### Future Of The Letsrate Gem
 
-Find it at [github.com/muratguzel/letsrate](https://github.com/muratguzel/letsrate)
+This gem will be updated on very early 2015  with many features. :) You can send me a message if you want to be a part of it. 
 
 ## Instructions
 
@@ -87,29 +87,12 @@ Speed : <%= rating_for @car, "engine", :star => 7 %>
 Speed : <%= rating_for @car, "price" %>
 ```
 
-### Important
+You can use the rating_for_user helper method to show the star rating for the user.
 
-By default rating_for tries to call devise current_user method as the rater instance in the rater_controller.rb file. You can change the current_user method
-as you will.
-
-```ruby
-#rater_controller.rb
-
-def create
-  if current_user.present?
-    obj = eval "#{params[:klass]}.find(#{params[:id]})"
-    if params[:dimension].present?
-      obj.rate params[:score].to_i, current_user.id, "#{params[:dimension]}"
-    else
-      obj.rate params[:score].to_i, current_user.id
-    end
-
-    render :json => true
-  else
-    render :json => false
-  end
-end
+```erb
+Speed : <%= rating_for_user @car, current_user, "speed", :star => 10 %>
 ```
+
 
 ## Feedback
 If you find bugs please open a ticket at [https://github.com/muratguzel/letsrate/issues](https://github.com/muratguzel/letsrate/issues)
