@@ -8,14 +8,6 @@ module Letsrate
     if can_rate? user, dimension
       rates(dimension).create! do |r|
         r.stars = stars
-<<<<<<< HEAD
-        r.rater_id = user_id
-        r.rateable_id = self.id
-        r.rateable_type = self.class.name
-        r.save!          
-      end      
-      update_rate_average(stars, dimension)
-=======
         r.rater = user
       end
       if dirichlet_method
@@ -23,7 +15,6 @@ module Letsrate
       else
         update_rate_average(stars, dimension)
       end
->>>>>>> upstream/master
     else
       raise "User has already rated."
     end
@@ -64,29 +55,12 @@ module Letsrate
       end
     else
       a = average(dimension)
-<<<<<<< HEAD
-      ap a.avg
-      ap a.qty
-      ap stars
-
-      a.avg = ((a.avg*a.qty) + stars) / (a.qty+1)
-      a.qty = a.qty + 1
-
-      ap "--------"
-      ap a.avg
-      ap a.qty
-      a.save!
-    end
-  end                               
-  
-=======
       a.qty = rates(dimension).count
       a.avg = rates(dimension).average(:stars)
       a.save!(validate: false)
     end
   end
 
->>>>>>> upstream/master
   def average(dimension=nil)
     dimension ?  self.send("#{dimension}_average") : rate_average_without_dimension
   end
